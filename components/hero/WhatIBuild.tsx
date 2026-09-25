@@ -61,13 +61,13 @@ export default function WhatIBuild() {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">05</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">05</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               WHAT I BUILD
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             CORE INFRASTRUCTURE DISCIPLINES
           </span>
         </div>
@@ -82,7 +82,7 @@ export default function WhatIBuild() {
                 className="group p-6 rounded-lg bg-zinc-950/70 border border-zinc-800 hover:border-zinc-700 transition-all font-mono space-y-4 hover:bg-zinc-900/40 relative"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-zinc-600 font-bold tracking-wider">
+                  <span className="text-xs text-zinc-600 font-bold tracking-wider font-nothing">
                     {pillar.number}
                   </span>
                   <div className="p-2 rounded bg-zinc-900 border border-zinc-800 text-zinc-400 group-hover:text-emerald-400 transition-colors">
@@ -103,7 +103,7 @@ export default function WhatIBuild() {
                   {pillar.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-400"
+                      className="px-2 py-0.5 rounded bg-zinc-900 border border-zinc-800 text-[10px] text-zinc-400 font-nothing"
                     >
                       {tag}
                     </span>

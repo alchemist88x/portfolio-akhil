@@ -341,13 +341,13 @@ export default function ArchitectureDiagram({
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs text-emerald-400 font-bold">06</span>
+            <span className="text-xs text-emerald-400 font-bold font-nothing">06</span>
             <span className="text-zinc-600">/</span>
             <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-100 uppercase">
               INFRASTRUCTURE ARCHITECTURE
             </h2>
           </div>
-          <span className="text-xs text-zinc-500">
+          <span className="text-xs text-zinc-500 font-nothing">
             ENTERPRISE DISTRIBUTED SYSTEMS TOPOLOGY
           </span>
         </div>
@@ -367,7 +367,7 @@ export default function ArchitectureDiagram({
               }`}
             >
               <Cloud size={14} className="text-sky-400" />
-              <span>AWS ENTERPRISE MULTI-REGION</span>
+              <span className="font-nothing tracking-wider">AWS ENTERPRISE MULTI-REGION</span>
             </button>
 
             <button
@@ -382,7 +382,7 @@ export default function ArchitectureDiagram({
               }`}
             >
               <Layers size={14} className="text-emerald-400" />
-              <span>META / FACEBOOK HYPER-SCALE</span>
+              <span className="font-nothing tracking-wider">META / FACEBOOK HYPER-SCALE</span>
             </button>
           </div>
 
@@ -399,12 +399,12 @@ export default function ArchitectureDiagram({
               {isSimulating ? (
                 <>
                   <RotateCcw size={13} className="animate-spin" />
-                  <span>SIMULATING PACKET TRAVERSAL...</span>
+                  <span className="font-nothing tracking-wider">SIMULATING PACKET TRAVERSAL...</span>
                 </>
               ) : (
                 <>
                   <Play size={13} className="fill-emerald-400 text-emerald-400" />
-                  <span>SIMULATE LIVE REQUEST TRAFFIC</span>
+                  <span className="font-nothing tracking-wider">SIMULATE LIVE REQUEST TRAFFIC</span>
                 </>
               )}
             </button>
@@ -414,32 +414,32 @@ export default function ArchitectureDiagram({
         {/* Live System Telemetry Metrics Bar */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 p-4 bg-zinc-950 border border-zinc-800/90 rounded-lg text-xs">
           <div className="space-y-0.5">
-            <span className="text-[10px] text-zinc-500 block">GLOBAL THROUGHPUT</span>
-            <span className="text-emerald-400 font-bold text-sm">
+            <span className="text-[10px] text-zinc-500 block font-nothing">GLOBAL THROUGHPUT</span>
+            <span className="text-emerald-400 font-bold text-sm font-nothing">
               {activePreset === "aws" ? "142,500 REQ/SEC" : "2,450,000 REQ/SEC"}
             </span>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] text-zinc-500 block">EDGE P95 LATENCY</span>
-            <span className="text-sky-400 font-bold text-sm">
+            <span className="text-[10px] text-zinc-500 block font-nothing">EDGE P95 LATENCY</span>
+            <span className="text-sky-400 font-bold text-sm font-nothing">
               {activePreset === "aws" ? "14.2 MS" : "8.6 MS"}
             </span>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] text-zinc-500 block">CACHE HIT RATIO</span>
-            <span className="text-amber-400 font-bold text-sm">
+            <span className="text-[10px] text-zinc-500 block font-nothing">CACHE HIT RATIO</span>
+            <span className="text-amber-400 font-bold text-sm font-nothing">
               {activePreset === "aws" ? "96.4%" : "98.7%"}
             </span>
           </div>
           <div className="space-y-0.5">
-            <span className="text-[10px] text-zinc-500 block">FAILOVER RTO</span>
-            <span className="text-emerald-400 font-bold text-sm">
+            <span className="text-[10px] text-zinc-500 block font-nothing">FAILOVER RTO</span>
+            <span className="text-emerald-400 font-bold text-sm font-nothing">
               {activePreset === "aws" ? "< 30 SECONDS" : "< 5 SECONDS"}
             </span>
           </div>
           <div className="col-span-2 sm:col-span-1 space-y-0.5">
-            <span className="text-[10px] text-zinc-500 block">AVAILABILITY SLA</span>
-            <span className="text-zinc-200 font-bold text-sm flex items-center gap-1.5">
+            <span className="text-[10px] text-zinc-500 block font-nothing">AVAILABILITY SLA</span>
+            <span className="text-zinc-200 font-bold text-sm flex items-center gap-1.5 font-nothing">
               <span className="w-2 h-2 rounded-full bg-emerald-500 status-pulse" />
               99.999% SLA
             </span>
@@ -458,12 +458,12 @@ export default function ArchitectureDiagram({
 
         {/* Tier Filter Tabs */}
         <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-zinc-900 text-xs">
-          <span className="text-[10px] text-zinc-500 uppercase mr-1">FILTER TIER:</span>
+          <span className="text-[10px] text-zinc-500 uppercase mr-1 font-nothing">FILTER TIER:</span>
           {tiers.map((tier) => (
             <button
               key={tier}
               onClick={() => setActiveTier(tier)}
-              className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-colors uppercase ${
+              className={`px-2.5 py-1 rounded text-[11px] font-semibold transition-colors uppercase font-nothing ${
                 activeTier === tier
                   ? "bg-zinc-100 text-zinc-950"
                   : "bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800"
@@ -482,7 +482,7 @@ export default function ArchitectureDiagram({
               <span className="w-2 h-2 rounded-full bg-emerald-500 status-pulse" />
               TOPOLOGY GRAPH · CLICK OR HOVER NODE TO INSPECT ACTIVE PROTOCOLS &amp; DATAFLOWS
             </span>
-            <span className="text-emerald-400 font-bold text-[11px]">
+            <span className="text-emerald-400 font-bold text-[11px] font-nothing">
               DATA FLOW: INGRESS ──► GATEWAY ──► WORKLOAD ──► STORAGE
             </span>
           </div>
@@ -518,9 +518,9 @@ export default function ArchitectureDiagram({
                 >
                   {/* Step Indicator */}
                   <div className="w-full flex items-center justify-between text-[10px] text-zinc-600 font-bold">
-                    <span>0{index + 1}</span>
+                    <span className="font-nothing">0{index + 1}</span>
                     {node.latency && (
-                      <span className="text-[9px] text-emerald-400/80">{node.latency}</span>
+                      <span className="text-[9px] text-emerald-400/80 font-nothing">{node.latency}</span>
                     )}
                   </div>
 
@@ -545,7 +545,7 @@ export default function ArchitectureDiagram({
                   </span>
 
                   {/* Node Type Badge */}
-                  <span className="text-[9px] uppercase tracking-wider text-zinc-500 bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800/60">
+                  <span className="text-[9px] uppercase tracking-wider text-zinc-500 bg-zinc-900/80 px-2 py-0.5 rounded border border-zinc-800/60 font-nothing">
                     {node.type}
                   </span>
                 </div>
@@ -565,7 +565,7 @@ export default function ArchitectureDiagram({
                     <h4 className="text-sm font-bold text-zinc-100 uppercase tracking-wider">
                       {selectedNode.name}
                     </h4>
-                    <span className="text-[11px] text-emerald-400 font-semibold uppercase">
+                    <span className="text-[11px] text-emerald-400 font-semibold uppercase font-nothing">
                       {selectedNode.tier || selectedNode.type}
                     </span>
                   </div>
@@ -573,13 +573,13 @@ export default function ArchitectureDiagram({
 
                 {/* Connection Count */}
                 <div className="flex flex-wrap items-center gap-3 text-xs">
-                  <div className="bg-zinc-900 px-3 py-1.5 rounded border border-zinc-800 text-[11px] text-zinc-400">
+                  <div className="bg-zinc-900 px-3 py-1.5 rounded border border-zinc-800 text-[11px] text-zinc-400 font-nothing">
                     PROTOCOL:{" "}
                     <span className="text-sky-400 font-bold">
                       {selectedNode.protocol || "HTTPS / TLS 1.3"}
                     </span>
                   </div>
-                  <div className="bg-zinc-900 px-3 py-1.5 rounded border border-zinc-800 text-[11px] text-zinc-400">
+                  <div className="bg-zinc-900 px-3 py-1.5 rounded border border-zinc-800 text-[11px] text-zinc-400 font-nothing">
                     RESILIENCY:{" "}
                     <span className="text-emerald-400 font-bold">
                       {selectedNode.resiliency || "Multi-AZ Active-Active"}
@@ -591,7 +591,7 @@ export default function ArchitectureDiagram({
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
                 {/* Description */}
                 <div className="md:col-span-2 space-y-2">
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
+                  <span className="text-[10px] text-zinc-500 uppercase tracking-wider block font-nothing">
                     PRODUCTION ARCHITECTURE ROLE &amp; SPECS:
                   </span>
                   <p className="text-xs text-zinc-300 leading-relaxed">
@@ -602,7 +602,7 @@ export default function ArchitectureDiagram({
 
                 {/* Connected Flow Paths */}
                 <div className="space-y-2 bg-zinc-900/60 p-3 rounded border border-zinc-800/80">
-                  <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
+                  <span className="text-[10px] text-zinc-500 uppercase tracking-wider block font-nothing">
                     CONNECTED DATA FLOWS:
                   </span>
                   <div className="space-y-1.5 text-xs">

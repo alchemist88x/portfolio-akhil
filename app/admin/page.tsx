@@ -17,6 +17,7 @@ import {
   ShieldCheck,
   Server,
   Activity,
+  Newspaper,
 } from "lucide-react";
 
 interface DashboardStats {
@@ -28,6 +29,7 @@ interface DashboardStats {
   skillCategoriesCount: number;
   skillsCount: number;
   experienceCount: number;
+  blogsCount?: number;
 }
 
 export default function AdminDashboardPage() {
@@ -123,6 +125,14 @@ export default function AdminDashboardPage() {
       color: "text-amber-400",
       href: "/admin/experience",
       subtext: "Career trajectory roles",
+    },
+    {
+      label: "BLOGS & DISPATCHES",
+      value: stats?.blogsCount ?? 0,
+      icon: Newspaper,
+      color: "text-emerald-400",
+      href: "/admin/blogs",
+      subtext: "Published articles & guides",
     },
   ];
 

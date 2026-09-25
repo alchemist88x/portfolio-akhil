@@ -4,6 +4,7 @@ import Project from "@/models/Project";
 import SkillCategory from "@/models/SkillCategory";
 import Skill from "@/models/Skill";
 import Experience from "@/models/Experience";
+import BlogPost from "@/models/BlogPost";
 import { apiError, apiSuccess } from "@/lib/api-response";
 
 export async function GET() {
@@ -22,6 +23,7 @@ export async function GET() {
       skillCategoriesCount,
       skillsCount,
       experienceCount,
+      blogsCount,
     ] = await Promise.all([
       ContactMessage.countDocuments(),
       ContactMessage.countDocuments({ status: "new" }),
@@ -31,6 +33,7 @@ export async function GET() {
       SkillCategory.countDocuments(),
       Skill.countDocuments(),
       Experience.countDocuments(),
+      BlogPost.countDocuments(),
     ]);
 
     return apiSuccess({
@@ -42,6 +45,7 @@ export async function GET() {
       skillCategoriesCount,
       skillsCount,
       experienceCount,
+      blogsCount,
     });
   } catch (error) {
     console.error("[Admin Stats Error]", error);

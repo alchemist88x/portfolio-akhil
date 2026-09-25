@@ -28,13 +28,13 @@ export default function AboutSection({ about }: AboutSectionProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">12</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">12</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               ABOUT
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             ENGINEERING PHILOSOPHY &amp; BACKGROUND
           </span>
         </div>
@@ -42,7 +42,7 @@ export default function AboutSection({ about }: AboutSectionProps) {
         {/* Large Editorial Statement Quote (Requirement 13) */}
         <div className="p-8 sm:p-12 rounded-xl bg-gradient-to-b from-zinc-950 to-[#0A0A0A] border border-zinc-800/90 relative overflow-hidden">
           <div className="relative z-10 max-w-4xl space-y-3 font-mono">
-            <span className="text-[11px] text-emerald-400 uppercase tracking-widest block font-bold">
+            <span className="text-[11px] text-emerald-400 uppercase tracking-widest block font-bold font-nothing">
               // CORE OPERATIONAL THESIS
             </span>
             <h3 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-zinc-100 leading-snug">
@@ -60,14 +60,14 @@ export default function AboutSection({ about }: AboutSectionProps) {
             <h3 className="text-lg font-bold text-zinc-100 uppercase tracking-wide">
               {title}
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-500 leading-relaxed font-nothing">
               OPERATING RELIABLE, ZERO-DRIFT INFRASTRUCTURE IN PRODUCTION ENVIRONMENTS FOR OVER A DECADE.
             </p>
 
             <div className="p-4 rounded-lg bg-zinc-900/60 border border-zinc-800 text-xs space-y-2 text-zinc-400">
               <div className="flex items-center gap-2 text-zinc-200 font-bold">
                 <ShieldCheck size={14} className="text-emerald-400" />
-                <span>10+ YEARS UPTIME FOCUS</span>
+                <span className="font-nothing">10+ YEARS UPTIME FOCUS</span>
               </div>
               <p className="text-[11px] text-zinc-500">
                 Bridging developer velocity with high availability, zero downtime, and robust telemetry.

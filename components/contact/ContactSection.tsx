@@ -63,13 +63,13 @@ export default function ContactSection({
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">15</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">15</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               CONTACT &amp; REACHABILITY
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             ENCRYPTED DISPATCH · RATE-LIMITED ENDPOINT
           </span>
         </div>
@@ -78,7 +78,7 @@ export default function ContactSection({
           {/* Left Column: Direct Reachability Info */}
           <div className="lg:col-span-5 font-mono space-y-8">
             <div className="space-y-3">
-              <span className="text-xs text-emerald-400 font-bold uppercase tracking-wider block">
+              <span className="text-xs text-emerald-400 font-bold uppercase tracking-wider block font-nothing">
                 DIRECT CHANNELS
               </span>
               <p className="text-sm text-zinc-300 leading-relaxed">
@@ -88,7 +88,7 @@ export default function ContactSection({
 
             <div className="space-y-4 text-xs">
               <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800 space-y-1">
-                <span className="text-[10px] text-zinc-500 uppercase tracking-widest block flex items-center gap-1.5">
+                <span className="text-[10px] text-zinc-500 uppercase tracking-widest block flex items-center gap-1.5 font-nothing">
                   <Mail size={12} /> Direct Contact Email
                 </span>
                 <a
@@ -99,10 +99,10 @@ export default function ContactSection({
                 </a>
               </div>
 
-              <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800 space-y-1">
-                <span className="text-[10px] text-zinc-500 uppercase tracking-widest block flex items-center gap-1.5">
-                  <MapPin size={12} /> Geographic Base
-                </span>
+            <div className="p-4 rounded-lg bg-zinc-950/70 border border-zinc-800 space-y-1">
+              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block flex items-center gap-1.5 font-nothing">
+                <MapPin size={12} /> Geographic Base
+              </span>
                 <p className="font-bold text-zinc-200">
                   {location || "Kochi, Kerala, India"}
                 </p>
@@ -112,7 +112,7 @@ export default function ContactSection({
             {/* Social Links */}
             {publishedSocials.length > 0 && (
               <div className="space-y-2 pt-2">
-                <span className="text-[10px] text-zinc-500 uppercase tracking-wider block">
+                <span className="text-[10px] text-zinc-500 uppercase tracking-wider block font-nothing">
                   PROFILES &amp; REPOSITORIES:
                 </span>
                 <div className="flex flex-wrap gap-2 text-xs">
@@ -137,10 +137,10 @@ export default function ContactSection({
           <div className="lg:col-span-7">
             <div className="p-6 sm:p-8 rounded-lg bg-zinc-950/80 border border-zinc-800/80 font-mono space-y-6">
               <div className="flex items-center justify-between pb-3 border-b border-zinc-900">
-                <span className="text-xs font-bold text-zinc-200 uppercase tracking-wider">
+                <span className="text-xs font-bold text-zinc-200 uppercase tracking-wider font-nothing">
                   SEND SECURE DISPATCH
                 </span>
-                <span className="text-[10px] text-zinc-500">POST /api/contact</span>
+                <span className="text-[10px] text-zinc-500 font-nothing">POST /api/contact</span>
               </div>
 
               {success && (

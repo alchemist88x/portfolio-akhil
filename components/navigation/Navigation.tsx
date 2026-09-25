@@ -39,6 +39,12 @@ export default function Navigation({ items, engineerName = "AKHIL" }: Navigation
 
   const publishedItems = items.filter((item) => item.published);
 
+  const getHref = (item: NavItem) => {
+    if (item.sectionId.startsWith("/")) return item.sectionId;
+    if (item.sectionId === "blog" || item.label.toLowerCase() === "blog") return "/blog";
+    return `/#${item.sectionId}`;
+  };
+
   return (
     <>
       <header
@@ -56,29 +62,37 @@ export default function Navigation({ items, engineerName = "AKHIL" }: Navigation
           >
             <span className="w-2 h-2 rounded-full bg-emerald-500 status-pulse" />
             <span className="font-bold">{engineerName}</span>
-            <span className="text-[10px] text-zinc-500 tracking-wider hidden sm:inline">
+            <span className="text-[10px] text-zinc-500 tracking-wider hidden sm:inline font-nothing">
               // DEVOPS &amp; CLOUD
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8 font-mono text-xs tracking-wider">
-            {publishedItems.map((item) => (
-              <a
-                key={item.sectionId}
-                href={`#${item.sectionId}`}
-                className="text-zinc-400 hover:text-zinc-100 uppercase transition-colors hover:underline underline-offset-4 decoration-emerald-500/60"
-              >
-                {item.label}
-              </a>
-            ))}
+            {publishedItems.map((item) => {
+              const href = getHref(item);
+              const isBlog = item.sectionId === "blog" || item.label.toLowerCase() === "blog";
+              return (
+                <Link
+                  key={item.sectionId}
+                  href={href}
+                  className={`uppercase transition-colors hover:underline underline-offset-4 decoration-emerald-500/60 ${
+                    isBlog
+                      ? "text-emerald-400 hover:text-emerald-300 font-bold"
+                      : "text-zinc-400 hover:text-zinc-100"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              );
+            })}
 
             <Link
               href="/admin/login"
               className="text-[11px] text-zinc-500 hover:text-zinc-300 flex items-center gap-1 border border-zinc-800 px-2.5 py-1 rounded hover:border-zinc-700 transition-colors"
             >
               <ShieldCheck size={12} className="text-emerald-500" />
-              <span>CONTROL</span>
+              <span className="font-nothing">CONTROL</span>
             </Link>
           </nav>
 
@@ -114,31 +128,34 @@ export default function Navigation({ items, engineerName = "AKHIL" }: Navigation
 
           {/* Links list */}
           <div className="flex flex-col gap-6 py-8">
-            <span className="text-xs text-zinc-600 tracking-widest uppercase">NAVIGATION INDEX</span>
-            {publishedItems.map((item, idx) => (
-              <a
-                key={item.sectionId}
-                href={`#${item.sectionId}`}
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-baseline justify-between text-2xl font-bold tracking-tight text-zinc-200 hover:text-emerald-400 transition-colors"
-              >
-                <span>{item.label}</span>
-                <span className="text-xs text-zinc-600 font-normal">
-                  /0{idx + 1}
-                </span>
-              </a>
-            ))}
+            <span className="text-xs text-zinc-600 tracking-widest uppercase font-nothing">NAVIGATION INDEX</span>
+            {publishedItems.map((item, idx) => {
+              const href = getHref(item);
+              return (
+                <Link
+                  key={item.sectionId}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-baseline justify-between text-2xl font-bold tracking-tight text-zinc-200 hover:text-emerald-400 transition-colors"
+                >
+                  <span>{item.label}</span>
+                  <span className="text-xs text-zinc-600 font-normal font-nothing">
+                    /0{idx + 1}
+                  </span>
+                </Link>
+              );
+            })}
           </div>
 
           {/* Footer info */}
           <div className="pt-6 border-t border-zinc-800 flex items-center justify-between text-xs text-zinc-500">
-            <span>KOCHI, KERALA, INDIA</span>
+            <span className="font-nothing">KOCHI, KERALA, INDIA</span>
             <Link
               href="/admin/login"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-1 text-emerald-400"
             >
-              <span>CONTROL PLANE</span>
+              <span className="font-nothing">CONTROL PLANE</span>
               <ArrowUpRight size={12} />
             </Link>
           </div>

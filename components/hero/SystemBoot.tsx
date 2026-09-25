@@ -52,11 +52,11 @@ export default function SystemBoot() {
             <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 status-pulse" />
-                <span className="text-xs font-bold tracking-widest text-zinc-100">
+                <span className="text-xs font-bold tracking-widest text-zinc-100 font-nothing">
                   SYSTEM BOOT // V10.4
                 </span>
               </div>
-              <span className="text-[10px] text-zinc-500">INIT</span>
+              <span className="text-[10px] text-zinc-500 font-nothing">INIT</span>
             </div>
 
             <div className="space-y-1 text-xs">
@@ -68,7 +68,7 @@ export default function SystemBoot() {
                   }`}
                 >
                   <span className="text-[10px]">{idx === bootStep ? "►" : "✓"}</span>
-                  <span>{stepText}</span>
+                  <span className="font-nothing text-[11px]">{stepText}</span>
                 </div>
               ))}
             </div>

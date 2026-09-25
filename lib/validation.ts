@@ -243,3 +243,24 @@ export const adminAccountSchema = z.object({
   currentPassword: z.string().optional(),
   newPassword: z.string().min(8, "New password must be at least 8 characters").optional(),
 });
+
+// 18. Blog Post Schema
+export const blogPostSchema = z.object({
+  title: z.string().min(1, "Title is required").max(200, "Title must be at most 200 characters"),
+  slug: z
+    .string()
+    .min(1, "Slug is required")
+    .max(200, "Slug must be at most 200 characters")
+    .regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Slug must only contain lowercase letters, numbers, and hyphens"),
+  summary: z.string().min(1, "Summary is required").max(1000, "Summary must be at most 1000 characters"),
+  content: z.string().min(1, "Content is required").max(100000, "Content cannot exceed 100,000 characters"),
+  category: z.string().max(100).optional().default("DevOps"),
+  tags: z.array(z.string().max(50)).default([]),
+  coverImage: safeUrlSchema,
+  readTime: z.string().max(50).optional().default("5 min read"),
+  featured: z.boolean().default(false),
+  published: z.boolean().default(true),
+  sortOrder: z.number().default(0),
+  publishedAt: z.string().optional(),
+});
+

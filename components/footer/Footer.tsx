@@ -103,14 +103,14 @@ export default function Footer({ settings, socialLinks = [] }: FooterProps) {
             <span>© {currentYear} {settings?.fullName || "Akhil K Anil"}. All rights reserved.</span>
             <span className="text-zinc-700">|</span>
             {techMeta && (
-              <span className="text-zinc-400">
+              <span className="text-zinc-400 font-nothing">
                 RELEASE // 2026.09
               </span>
             )}
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+            <span className="flex items-center gap-1.5 text-emerald-400 font-semibold font-nothing">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
               SYSTEM: ONLINE
             </span>
@@ -120,7 +120,7 @@ export default function Footer({ settings, socialLinks = [] }: FooterProps) {
               className="text-zinc-400 hover:text-zinc-200 flex items-center gap-1 px-2 py-0.5 rounded bg-zinc-900/60 border border-zinc-800 transition-colors"
             >
               <ShieldCheck size={11} className="text-emerald-400" />
-              <span>CONTROL</span>
+              <span className="font-nothing">CONTROL</span>
             </Link>
           </div>
         </div>

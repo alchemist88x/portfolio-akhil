@@ -21,6 +21,7 @@ import SocialLink from "../models/SocialLink";
 import NavigationItem from "../models/NavigationItem";
 import TerminalCommand from "../models/TerminalCommand";
 import SEOSettings from "../models/SEOSettings";
+import BlogPost from "../models/BlogPost";
 
 import {
   defaultSiteSettings,
@@ -36,6 +37,7 @@ import {
   defaultNavigationItems,
   defaultTerminalCommands,
   defaultSEOSettings,
+  defaultBlogPosts,
 } from "../lib/initial-data";
 
 async function seed() {
@@ -187,6 +189,13 @@ async function seed() {
     if (seoCount === 0) {
       await SEOSettings.create(defaultSEOSettings);
       console.log("✓ SEO settings seeded");
+    }
+
+    // 14. Engineering Blogs
+    const blogCount = await BlogPost.countDocuments();
+    if (blogCount === 0) {
+      await BlogPost.insertMany(defaultBlogPosts);
+      console.log("✓ Engineering blog posts seeded");
     }
 
     console.log("🎉 Database seeding complete!");

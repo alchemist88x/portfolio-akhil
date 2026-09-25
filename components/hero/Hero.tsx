@@ -72,25 +72,25 @@ export default function Hero({
               </span>
             )}
             <div>
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block">ENGINEER</span>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-nothing">ENGINEER</span>
               <span className="font-bold text-zinc-100 uppercase tracking-wider">
                 {settings.name || "AKHIL"}
               </span>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block">ROLE</span>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-nothing">ROLE</span>
               <span className="font-bold text-zinc-100 uppercase tracking-wider truncate block">
                 {settings.title ? settings.title.split("&")[0].trim().toUpperCase() : "DEVOPS ENGINEER"}
               </span>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block">EXPERIENCE</span>
-              <span className="font-bold text-emerald-400 uppercase tracking-wider">
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-nothing">EXPERIENCE</span>
+              <span className="font-bold text-emerald-400 uppercase tracking-wider font-nothing">
                 {settings.experienceYears || "10+ YEARS"}
               </span>
             </div>
             <div>
-              <span className="text-[10px] text-zinc-500 uppercase tracking-widest block">REGION</span>
+              <span className="text-[9px] text-zinc-500 uppercase tracking-widest block font-nothing">REGION</span>
               <span className="font-bold text-zinc-100 uppercase tracking-wider">
                 {settings.location ? settings.location.toUpperCase() : "KOCHI, INDIA"}
               </span>
@@ -104,8 +104,8 @@ export default function Hero({
           <div className="lg:col-span-7 space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] text-zinc-400">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{settings.heroLabel || "SYSTEM // 001"}</span>
-              {techDots && <span className="text-zinc-600 text-[10px]">· · · ·</span>}
+              <span className="font-nothing text-[10px] tracking-wider">{settings.heroLabel || "SYSTEM // 001"}</span>
+              {techDots && <span className="text-zinc-600 text-[10px] font-nothing">· · · ·</span>}
             </div>
 
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-zinc-100 leading-[1.12]">

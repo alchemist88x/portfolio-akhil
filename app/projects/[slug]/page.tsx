@@ -48,11 +48,12 @@ export default async function ProjectDetailPage({ params }: ProjectDetailPagePro
     <div className="min-h-screen bg-[#0A0A0A] text-[#F5F5F5] flex flex-col font-mono selection:bg-emerald-500/20 selection:text-emerald-400">
       <Navigation
         items={[
-          { label: "WORK", sectionId: "/#work", published: true },
-          { label: "STACK", sectionId: "/#stack", published: true },
-          { label: "EXPERIENCE", sectionId: "/#experience", published: true },
-          { label: "ABOUT", sectionId: "/#about", published: true },
-          { label: "CONTACT", sectionId: "/#contact", published: true },
+          { label: "WORK", sectionId: "work", published: true },
+          { label: "STACK", sectionId: "stack", published: true },
+          { label: "EXPERIENCE", sectionId: "experience", published: true },
+          { label: "BLOG", sectionId: "blog", published: true },
+          { label: "ABOUT", sectionId: "about", published: true },
+          { label: "CONTACT", sectionId: "contact", published: true },
         ]}
       />
 

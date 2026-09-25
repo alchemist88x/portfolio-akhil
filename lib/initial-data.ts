@@ -663,8 +663,9 @@ export const defaultNavigationItems = [
   { label: "WORK", sectionId: "work", sortOrder: 1, published: true },
   { label: "STACK", sectionId: "stack", sortOrder: 2, published: true },
   { label: "EXPERIENCE", sectionId: "experience", sortOrder: 3, published: true },
-  { label: "ABOUT", sectionId: "about", sortOrder: 4, published: true },
-  { label: "CONTACT", sectionId: "contact", sortOrder: 5, published: true },
+  { label: "BLOG", sectionId: "blog", sortOrder: 4, published: true },
+  { label: "ABOUT", sectionId: "about", sortOrder: 5, published: true },
+  { label: "CONTACT", sectionId: "contact", sortOrder: 6, published: true },
 ];
 
 export const defaultTerminalCommands = [
@@ -782,3 +783,256 @@ export const defaultSEOSettings = {
   ogImage: "",
   canonicalUrl: "",
 };
+
+export const defaultBlogPosts = [
+  {
+    title: "Architecting Zero-Downtime Blue/Green Deployments with AWS ECS & Terraform",
+    slug: "zero-downtime-ecs-blue-green-terraform",
+    summary:
+      "A field-tested production blueprint for deploying containerized microservices using AWS Application Load Balancers, CodeDeploy automated rollback hooks, and immutable Terraform modules.",
+    category: "Cloud Infrastructure",
+    tags: ["AWS", "ECS", "Terraform", "Docker", "DevOps", "CI/CD"],
+    readTime: "6 min read",
+    featured: true,
+    published: true,
+    sortOrder: 1,
+    publishedAt: new Date("2026-08-15").toISOString(),
+    content: `## The Imperative for Zero-Downtime Deployments
+
+In high-concurrency production architectures, even a 30-second restart window or dropped TCP socket can result in thousands of severed user connections and transaction failures. Traditional rolling updates, while simple, often introduce subtle transient errors during API schema migrations or dependency mismatch periods.
+
+To eliminate this volatility, we architected an automated **Blue/Green deployment topology** on AWS Elastic Container Service (Amazon ECS) managed entirely via declarative Terraform modules.
+
+---
+
+### Architectural Design: The Two-Target-Group Model
+
+The core of our immutable deployment strategy relies on AWS Application Load Balancer (ALB) paired with AWS CodeDeploy for container traffic shifting:
+
+\`\`\`
+[ Global Clients ]
+        │ (HTTPS / TLS 1.3)
+        ▼
+[ Application Load Balancer (Port 443) ]
+        │
+   ┌────┴─────────────────────────┐
+   │ Production Listener          │ Test / Verification Listener
+   ▼ (Port 443)                   ▼ (Port 8443)
+[ Blue Target Group (Active) ]  [ Green Target Group (Candidate) ]
+   │ (Tasks v1.4.0)               │ (Tasks v1.4.1)
+   ▼                              ▼
+[ ECS Fargate Tasks ]           [ ECS Fargate Tasks ]
+\`\`\`
+
+1. **Active Traffic (Blue)**: Handles 100% of live production traffic through the primary HTTPS listener (port 443).
+2. **Candidate Deployment (Green)**: CodeDeploy provisions the updated container task revision and links it to a dedicated verification test listener (port 8443).
+3. **Automated Health & Synthetic Validation**: Synthetic test suites probe port 8443. Only when consecutive health checks and canary requests pass does traffic shifting begin.
+4. **Linear / Canary Shifting**: Traffic moves from Blue to Green at 10% per minute or via a fast 5-minute linear ramp.
+5. **Instant Rollback Hook**: If CloudWatch alarms register an increase in HTTP 5xx rates (> 0.05%) or latency spikes beyond 120ms P95, CodeDeploy immediately shifts 100% traffic back to Blue with zero user impact.
+
+---
+
+### Terraform Implementation Snippet
+
+Below is the core Terraform configuration establishing the ECS service with the \`CODE_DEPLOY\` deployment controller:
+
+\`\`\`hcl
+resource "aws_ecs_service" "api_service" {
+  name            = "production-core-api"
+  cluster         = aws_ecs_cluster.main.id
+  task_definition = aws_ecs_task_definition.app.arn
+  desired_count   = 6
+  launch_type     = "FARGATE"
+
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  network_configuration {
+    subnets          = module.vpc.private_subnets
+    security_groups  = [aws_security_group.ecs_tasks.id]
+    assign_public_ip = false
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.blue.arn
+    container_name   = "core-api"
+    container_port   = 8080
+  }
+
+  lifecycle {
+    ignore_changes = [
+      task_definition,
+      load_balancer
+    ]
+  }
+}
+\`\`\`
+
+---
+
+### Key Operational Lessons Learned
+
+- **Database Backward Compatibility**: Always ensure database migrations follow the expand-and-contract pattern. The database schema must simultaneously support both the Blue (v1.4.0) and Green (v1.4.1) codebases during the 10-minute transition window.
+- **Connection Draining (Deregistration Delay)**: Set the deregistration delay on the Blue target group to at least 30–60 seconds so ongoing HTTP Keep-Alive requests gracefully terminate before tasks receive the \`SIGTERM\` signal.
+- **Zero Drift Automation**: By parameterizing task definitions and deployment group ARNs in reusable CI/CD pipeline stages, developers can push code with full confidence that infrastructure never drifts between staging and production.`,
+  },
+  {
+    title: "High-Throughput Generative AI: Orchestrating LLM Serving on Kubernetes with GPU Slicing",
+    slug: "orchestrating-llm-serving-kubernetes-gpu",
+    summary:
+      "A comprehensive engineering guide to hosting and auto-scaling open-source LLM inference endpoints with vLLM, NVIDIA Multi-Instance GPU (MIG) partitioning, and custom Prometheus queue telemetry.",
+    category: "AI Infrastructure",
+    tags: ["Kubernetes", "GenAI", "GPU", "NVIDIA", "vLLM", "Prometheus", "Python"],
+    readTime: "8 min read",
+    featured: true,
+    published: true,
+    sortOrder: 2,
+    publishedAt: new Date("2026-08-28").toISOString(),
+    content: `## The GPU Utilization Dilemma in Enterprise AI
+
+Self-hosting Large Language Models (LLMs) like Llama 3, Mistral, and DeepSeek in production presents a significant operational challenge: GPU resources (such as NVIDIA A100s or H100s) are costly, while token generation workloads fluctuate drastically throughout the day. 
+
+Running dedicated full-card GPU allocations for small or asynchronous inference requests leads to severe underutilization (often 15–25% compute utilization) and massive cloud bills.
+
+In this deep dive, we detail the multi-tenant GPU orchestration architecture we built using **NVIDIA Multi-Instance GPU (MIG)**, **vLLM Continuous PagedAttention**, and **Kubernetes Custom Metrics HPA**.
+
+---
+
+### Multi-Instance GPU (MIG) Slicing Topology
+
+By leveraging NVIDIA Multi-Instance GPU technology on 80GB A100 nodes, we partition each physical accelerator into isolated hardware instances with dedicated high-bandwidth memory (HBM), compute SMs, and memory crossbars:
+
+\`\`\`
+┌────────────────────────────────────────────────────────┐
+│           PHYSICAL NVIDIA A100 (80GB VRAM)             │
+├────────────────────┬──────────────────┬────────────────┤
+│ MIG Profile: 3g.40gb│ MIG Profile: 2g.20gb│ MIG Profile: 1g.10gb│
+│ (Heavy 70B Model)  │ (14B Agent Flow) │ (Embedding Svc)│
+│ Dedicated 40GB HBM │ Dedicated 20GB HBM│ Dedicated 10GB HBM│
+└────────────────────┴──────────────────┴────────────────┘
+\`\`\`
+
+Each MIG instance appears as an independent, deterministic GPU device to the Kubernetes \`k8s-device-plugin\`, providing complete hardware memory isolation so that an Out-Of-Memory (OOM) error in one model never cascades to affect adjacent workloads.
+
+---
+
+### vLLM Engine Configuration
+
+We deploy inference pods using **vLLM**, which utilizes **PagedAttention** to eliminate KV-cache memory fragmentation and enables dynamic request batching:
+
+\`\`\`yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vllm-llama-serving
+  namespace: ai-workloads
+spec:
+  replicas: 3
+  template:
+    spec:
+      containers:
+      - name: vllm-engine
+        image: vllm/vllm-openai:latest
+        args:
+        - "--model=/models/llama-3-8b-instruct"
+        - "--tensor-parallel-size=1"
+        - "--gpu-memory-utilization=0.92"
+        - "--max-model-len=8192"
+        - "--enforce-eager"
+        - "--disable-log-requests"
+        resources:
+          limits:
+            nvidia.com/mig-3g.40gb: 1
+            cpu: "8"
+            memory: "32Gi"
+          requests:
+            nvidia.com/mig-3g.40gb: 1
+            cpu: "4"
+            memory: "16Gi"
+\`\`\`
+
+---
+
+### Queue-Based Autoscaling with Prometheus KEDA
+
+Standard CPU/Memory metrics are useless for autoscaling Generative AI workloads because GPU memory is allocated statically up front by the model weights and KV-cache.
+
+Instead, we expose real-time vLLM engine metrics directly to Prometheus:
+- \`vllm:num_requests_waiting\`: The number of requests pending in the iteration queue.
+- \`vllm:avg_generation_throughput_tok_per_s\`: Instantaneous generation speed.
+- \`vllm:time_to_first_token_seconds\`: P95 latency before prompt prefill returns.
+
+We configure **KEDA (Kubernetes Event-driven Autoscaling)** to scale our pod replicas dynamically whenever \`num_requests_waiting > 4\` over a 45-second sliding window, ensuring prompt responses remain sub-second even during traffic bursts.`,
+  },
+  {
+    title: "Enterprise Multi-Region Failover: Route 53, Aurora Global Database & Active-Active Resiliency",
+    slug: "enterprise-multi-region-failover-active-active",
+    summary:
+      "A complete guide to engineering sub-30-second disaster recovery failover architectures across AWS us-east-1 and eu-central-1 with Aurora Global Database and Cloudflare Anycast edge routing.",
+    category: "Distributed Systems",
+    tags: ["AWS", "Aurora", "Route 53", "Cloudflare", "Disaster Recovery", "High Availability"],
+    readTime: "7 min read",
+    featured: false,
+    published: true,
+    sortOrder: 3,
+    publishedAt: new Date("2026-09-05").toISOString(),
+    content: `## Surviving Single-Region Cloud Outages
+
+Major cloud provider outages have demonstrated that relying on a single AWS availability zone or even a single geographic region is an unacceptable risk for mission-critical platforms. Achieving high reliability requires an active-active or fast automated active-passive multi-region topology.
+
+This architecture overview details how we designed an enterprise-grade cross-region disaster recovery system between **AWS us-east-1 (N. Virginia)** and **eu-central-1 (Frankfurt)** with an RTO (Recovery Time Objective) under 30 seconds and an RPO (Recovery Point Objective) under 1 second.
+
+---
+
+### Global Data Replication Architecture
+
+\`\`\`
+[ Cloudflare Global Edge ]
+         │ (Anycast BGP Ingress)
+         ▼
+[ AWS Route 53 Traffic Flow Policy ]
+   ├── (Primary: Health Check PASS) ──► us-east-1 [ Primary Region ]
+   │                                       ├── ALB Ingress
+   │                                       ├── ECS Microservice Mesh
+   │                                       └── Aurora Global DB (Writer)
+   │                                                 │
+   │                                                 │ (Cross-Region Storage Replication < 1s)
+   │                                                 ▼
+   └── (Secondary: Automated Failover) ─► eu-central-1 [ Disaster Recovery Region ]
+                                           ├── Standby ALB Ingress
+                                           ├── ECS Microservice Mesh (Warm Pool)
+                                           └── Aurora Global DB (Read Replica)
+\`\`\`
+
+---
+
+### 1. Storage Tier: Amazon Aurora Global Database
+
+Amazon Aurora Global Database uses dedicated storage-layer replication rather than traditional database logical replication:
+- Dedicated AWS infrastructure handles storage block replication with typical replication latencies under **800 milliseconds**.
+- The secondary region in Frankfurt maintains 3 warm reader instances that serve read-heavy analytical and catalog queries during normal operations.
+- In the event of a regional disaster in Virginia, a Lambda-based orchestration function invokes \`aws rds failover-global-cluster\`, promoting Frankfurt to primary writer in under 20 seconds with **zero data loss**.
+
+---
+
+### 2. Edge Routing: Dual Health Probing
+
+To prevent DNS "flapping" during transient network blips:
+1. **Route 53 Calculated Health Checks**: We combine 3 independent regional endpoint probes across North America, Europe, and Asia.
+2. **Synthetic Payload Validation**: The health endpoint doesn't merely return HTTP 200; it executes a round-trip database read check to verify storage layer health.
+3. **Cloudflare Zero-Downtime Origin Shield**: Origin shield caching ensures that static assets and cached API responses continue serving seamlessly during the 20-second regional DNS TTL propagation interval.
+
+---
+
+### Verification and Chaos Testing
+
+A disaster recovery plan that isn't tested regularly is an illusion. We execute automated **Game Day chaos simulations** quarterly:
+- Simulating a synthetic AWS us-east-1 outage by triggering simulated transit gateway packet drop rules.
+- Validating automated promotion of the Frankfurt writer.
+- Confirming that CI/CD pipelines switch target endpoints automatically without manual intervention.
+
+The result is true peace of mind: resilient, enterprise-grade cloud architecture that guarantees business continuity regardless of infrastructure conditions.`,
+  },
+];
+

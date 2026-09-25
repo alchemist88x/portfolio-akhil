@@ -36,13 +36,13 @@ export default function HobbiesSection({ hobbies }: HobbiesProps) {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">14</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">14</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               HARDWARE &amp; PURSUITS
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             EMBEDDED ELECTRONICS &amp; LOW-LEVEL PASSIONS
           </span>
         </div>
@@ -63,7 +63,7 @@ export default function HobbiesSection({ hobbies }: HobbiesProps) {
                     <h3 className="text-sm font-bold text-zinc-100 uppercase tracking-wide">
                       {hobby.name}
                     </h3>
-                    <span className="text-[10px] text-zinc-500">HARDWARE HOBBY</span>
+                    <span className="text-[10px] text-zinc-500 font-nothing">HARDWARE HOBBY</span>
                   </div>
                 </div>
 

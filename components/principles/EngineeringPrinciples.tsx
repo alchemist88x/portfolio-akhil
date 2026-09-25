@@ -29,13 +29,13 @@ export default function EngineeringPrinciples({ principles }: EngineeringPrincip
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">13</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">13</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               ENGINEERING PRINCIPLES
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             SYSTEM RELIABILITY &amp; ARCHITECTURAL LAWS
           </span>
         </div>
@@ -49,7 +49,7 @@ export default function EngineeringPrinciples({ principles }: EngineeringPrincip
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between border-b border-zinc-900 pb-2">
-                  <span className="text-xs font-bold text-emerald-400">
+                  <span className="text-xs font-bold text-emerald-400 font-nothing">
                     LAW // {principle.number}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -64,7 +64,7 @@ export default function EngineeringPrinciples({ principles }: EngineeringPrincip
                 </p>
               </div>
 
-              <div className="text-[10px] text-zinc-600 tracking-widest uppercase pt-2 border-t border-zinc-900">
+              <div className="text-[10px] text-zinc-600 tracking-widest uppercase pt-2 border-t border-zinc-900 font-nothing">
                 PRODUCTION STANDARD
               </div>
             </div>

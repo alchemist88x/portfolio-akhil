@@ -63,13 +63,13 @@ export default function TechStack({ categories }: TechStackProps) {
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-zinc-800 pb-4">
           <div className="flex items-center gap-3">
-            <span className="text-xs font-mono text-emerald-400 font-bold">09</span>
+            <span className="text-xs font-mono text-emerald-400 font-bold font-nothing">09</span>
             <span className="text-zinc-600 font-mono">/</span>
             <h2 className="text-xl sm:text-2xl font-mono font-bold tracking-tight text-zinc-100 uppercase">
               TECHNOLOGY STACK
             </h2>
           </div>
-          <span className="text-xs font-mono text-zinc-500">
+          <span className="text-xs font-mono text-zinc-500 font-nothing">
             VERIFIED TOOL MATRIX · ZERO FAKE METRICS
           </span>
         </div>
@@ -78,7 +78,7 @@ export default function TechStack({ categories }: TechStackProps) {
         <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`px-3.5 py-1.5 rounded transition-colors uppercase ${
+            className={`px-3.5 py-1.5 rounded transition-colors uppercase font-nothing ${
               selectedCategory === "all"
                 ? "bg-zinc-100 text-zinc-950 font-bold"
                 : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-zinc-200"
@@ -90,7 +90,7 @@ export default function TechStack({ categories }: TechStackProps) {
             <button
               key={cat._id}
               onClick={() => setSelectedCategory(cat._id)}
-              className={`px-3 py-1.5 rounded transition-colors uppercase ${
+              className={`px-3 py-1.5 rounded transition-colors uppercase font-nothing ${
                 selectedCategory === cat._id
                   ? "bg-zinc-100 text-zinc-950 font-bold"
                   : "bg-zinc-900/80 border border-zinc-800 text-zinc-400 hover:text-zinc-200 hover:border-zinc-700"
@@ -122,7 +122,7 @@ export default function TechStack({ categories }: TechStackProps) {
                       <h3 className="text-xs font-bold text-zinc-200 uppercase tracking-wider">
                         {cat.name}
                       </h3>
-                      <span className="text-[10px] text-zinc-500">
+                      <span className="text-[10px] text-zinc-500 font-nothing">
                         {publishedSkills.length} tools verified
                       </span>
                     </div>
@@ -143,7 +143,7 @@ export default function TechStack({ categories }: TechStackProps) {
                       </span>
 
                       {skill.level && (
-                        <span className="text-[9px] text-zinc-500 bg-zinc-950 px-1 py-0.2 rounded border border-zinc-800">
+                        <span className="text-[9px] text-zinc-500 bg-zinc-950 px-1 py-0.2 rounded border border-zinc-800 font-nothing">
                           {skill.level}
                         </span>
                       )}
