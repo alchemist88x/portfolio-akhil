@@ -215,7 +215,15 @@ export default async function HomePage() {
         <SystemStatus status={settings} />
 
         {/* 04 — ENGINEERING TIMELINE */}
-        <EngineeringTimeline experiences={experiences} />
+        <EngineeringTimeline
+          experiences={experiences}
+          visualSettings={{
+            technicalTypographyEnabled: settings.technicalTypographyEnabled,
+            technicalDotPatternEnabled: settings.technicalDotPatternEnabled,
+            technicalMetadataEnabled: settings.technicalMetadataEnabled,
+            technicalDecorationsEnabled: settings.technicalDecorationsEnabled,
+          }}
+        />
 
         {/* 05 — WHAT I BUILD */}
         <WhatIBuild />
@@ -231,13 +239,29 @@ export default async function HomePage() {
         <CicdPipeline pipeline={pipeline} stages={pipelineStages} />
 
         {/* 08 — FEATURED PROJECTS */}
-        <FeaturedProjects projects={projects} />
+        <FeaturedProjects
+          projects={projects}
+          visualSettings={{
+            technicalTypographyEnabled: settings.technicalTypographyEnabled,
+            technicalDotPatternEnabled: settings.technicalDotPatternEnabled,
+            technicalMetadataEnabled: settings.technicalMetadataEnabled,
+            technicalDecorationsEnabled: settings.technicalDecorationsEnabled,
+          }}
+        />
 
         {/* 09 — TECHNOLOGY STACK */}
         <TechStack categories={skillCategories} />
 
         {/* 10 — EXPERIENCE */}
-        <ExperienceSection experiences={experiences} />
+        <ExperienceSection
+          experiences={experiences}
+          visualSettings={{
+            technicalTypographyEnabled: settings.technicalTypographyEnabled,
+            technicalDotPatternEnabled: settings.technicalDotPatternEnabled,
+            technicalMetadataEnabled: settings.technicalMetadataEnabled,
+            technicalDecorationsEnabled: settings.technicalDecorationsEnabled,
+          }}
+        />
 
         {/* 12 — ABOUT */}
         <AboutSection about={about} />

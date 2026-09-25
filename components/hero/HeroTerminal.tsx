@@ -13,6 +13,7 @@ interface HeroTerminalProps {
   commands?: TerminalCommandData[];
   metadata?: {
     name: string;
+    fullName?: string;
     title: string;
     experienceYears: string;
     location: string;
@@ -21,6 +22,12 @@ interface HeroTerminalProps {
   skills?: string[];
   projects?: { name: string; category?: string }[];
   experience?: { company: string; role: string; dates: string }[];
+  visualSettings?: {
+    technicalTypographyEnabled?: boolean;
+    technicalDotPatternEnabled?: boolean;
+    technicalMetadataEnabled?: boolean;
+    technicalDecorationsEnabled?: boolean;
+  };
 }
 
 interface TerminalLine {
@@ -34,21 +41,30 @@ export default function HeroTerminal({
   skills = [],
   projects = [],
   experience = [],
+  visualSettings,
 }: HeroTerminalProps) {
+  const techType = visualSettings?.technicalTypographyEnabled ?? true;
+  const techDots = visualSettings?.technicalDotPatternEnabled ?? true;
+  const techMeta = visualSettings?.technicalMetadataEnabled ?? true;
+  const techDeco = visualSettings?.technicalDecorationsEnabled ?? true;
+
+  const fontClass = techType ? "font-mono" : "font-sans";
+
+  const engineerName = (metadata?.fullName || metadata?.name || "AKHIL K ANIL").toUpperCase();
+  const engineerRole = (metadata?.title || "SYSTEM ENGINEER / DEVOPS ENGINEER").toUpperCase();
+  const engineerExp = (metadata?.experienceYears || "10+ YEARS EXPERIENCE").toUpperCase();
+
   const [history, setHistory] = useState<TerminalLine[]>([
-    { type: "system", content: "AKHIL INFRASTRUCTURE CONTROL PLANE v10.4 [x86_64-linux]" },
-    { type: "system", content: "Type 'help' or 'status' to inspect cluster capabilities." },
+    { type: "system", content: "AKHIL CONTROL PLANE // BUILD 2026.09 [SYS-INIT OK]" },
     { type: "input", content: "whoami" },
     {
       type: "output",
-      content: `${metadata?.name || "Akhil"}\n${metadata?.title || "DevOps Engineer & Cloud Infrastructure Engineer"}\nExperience: ${
-        metadata?.experienceYears || "10+ Years"
-      }\nRegion: ${metadata?.location || "Kochi, Kerala, India"}`,
+      content: `${engineerName}\n${engineerRole}\n\n${engineerExp}`,
     },
     { type: "input", content: "status" },
     {
       type: "output",
-      content: `portfolio.service      ● ONLINE\ninfrastructure         ● OPERATIONAL\ndeployment             ● READY\nmonitoring             ● ACTIVE\nuptime                 ● 99.99%`,
+      content: `PORTFOLIO.SERVICE      ● ONLINE\nINFRASTRUCTURE         ● OPERATIONAL\nAUTOMATION             ● ACTIVE\nCI/CD                  ● READY\nSECURITY               ● ENFORCED\nOBSERVABILITY          ● ACTIVE`,
     },
   ]);
 
@@ -95,23 +111,21 @@ export default function HeroTerminal({
       case "help":
         newLines.push({
           type: "output",
-          content: `AVAILABLE COMMANDS:\n  help        - Display command manual\n  whoami      - Print technical identity\n  status      - Display system diagnostics\n  skills      - Query verified technical matrix\n  projects    - List active infrastructure case studies\n  experience  - View timeline of professional roles\n  about       - Display background and philosophy\n  contact     - Display direct reachability channels\n  clear       - Clear terminal buffer`,
+          content: `AVAILABLE SYSTEM COMMANDS:\n  whoami      - Print technical identity\n  status      - Display system diagnostics\n  skills      - Query verified technical matrix\n  projects    - List active infrastructure case studies\n  experience  - View chronological timeline of roles\n  about       - Display engineering philosophy\n  contact     - Display direct reachability channels\n  clear       - Clear terminal buffer`,
         });
         break;
 
       case "whoami":
         newLines.push({
           type: "output",
-          content: `${metadata?.name || "Akhil"}\n${metadata?.title || "DevOps Engineer & Cloud Infrastructure Engineer"}\n${
-            metadata?.experienceYears || "10+ Years"
-          } experience\nLocation: ${metadata?.location || "Kochi, Kerala, India"}`,
+          content: `${engineerName}\n${engineerRole}\n\n${engineerExp}`,
         });
         break;
 
       case "status":
         newLines.push({
           type: "output",
-          content: `portfolio.service      ● ONLINE\ninfrastructure         ● OPERATIONAL\nautomation             ● ACTIVE\nmonitoring             ● ACTIVE\ndeployment             ● READY\nuptime                 ● 99.99%`,
+          content: `PORTFOLIO.SERVICE      ● ONLINE\nINFRASTRUCTURE         ● OPERATIONAL\nAUTOMATION             ● ACTIVE\nCI/CD                  ● READY\nSECURITY               ● ENFORCED\nOBSERVABILITY          ● ACTIVE\nREGION                 ● ${metadata?.location?.toUpperCase() || "KOCHI, INDIA"}`,
         });
         break;
 
@@ -121,8 +135,8 @@ export default function HeroTerminal({
           type: "output",
           content: `VERIFIED SKILLS MATRIX:\n${
             skills.length > 0
-              ? skills.map((s) => `  • ${s}`).join("\n")
-              : "  • AWS, Azure, Google Cloud\n  • Terraform, CloudFormation, Ansible\n  • Docker, Kubernetes, Jenkins, GitLab CI\n  • Prometheus, ELK Stack, CloudWatch"
+              ? skills.map((s) => `  ● ${s}`).join("\n")
+              : "  ● AWS, Azure, Google Cloud\n  ● Terraform, CloudFormation, Ansible\n  ● Docker, Kubernetes, Jenkins, GitLab CI\n  ● Prometheus, ELK Stack, CloudWatch"
           }`,
         });
         break;
@@ -133,7 +147,7 @@ export default function HeroTerminal({
           content: `FEATURED PRODUCTION CASE STUDIES:\n${
             projects.length > 0
               ? projects.map((p) => `  [+] ${p.name.padEnd(16)} | ${p.category || "Cloud Infrastructure"}`).join("\n")
-              : "  [+] SVADHAN          | Cloud Infrastructure\n  [+] Easy Store       | E-Commerce Infrastructure\n  [+] Dent Care        | Healthcare Infrastructure\n  [+] BBT              | Enterprise Retail"
+              : "  [+] VARVY CLOUD      | Cloud Infrastructure\n  [+] ALPHAUNIVERSE    | Web Application / Platform\n  [+] SVADHAN          | Cloud Infrastructure\n  [+] EASY STORE       | E-Commerce Infrastructure"
           }`,
         });
         break;
@@ -143,8 +157,8 @@ export default function HeroTerminal({
           type: "output",
           content: `CAREER TIMELINE:\n${
             experience.length > 0
-              ? experience.map((e) => `  • ${e.role} @ ${e.company} (${e.dates})`).join("\n")
-              : "  • Server/System Administrator @ Iroid Technologies (2021 — Present)\n  • Server/System Administrator @ a2solutions (2018 — 2021)"
+              ? experience.map((e) => `  ● ${e.role} @ ${e.company} (${e.dates})`).join("\n")
+              : "  ● System Engineer / DevOps Engineer @ Varvy Innovations Pvt. Ltd. (Aug 2026 — Present)\n  ● Server/System Administrator @ Iroid Technologies (2021 — 2026)"
           }`,
         });
         break;
@@ -160,16 +174,16 @@ export default function HeroTerminal({
       case "contact":
         newLines.push({
           type: "output",
-          content: `COMMUNICATION CHANNELS:\n  Email:    ${metadata?.contactEmail || "akhilkanil99@gmail.com"}\n  Location: ${
-            metadata?.location || "Kochi, Kerala, India"
-          }\n  Status:   Open to enterprise infrastructure & DevOps engagements.`,
+          content: `COMMUNICATION CHANNELS:\n  EMAIL:    ${metadata?.contactEmail || "akhilkanil99@gmail.com"}\n  LOCATION: ${
+            metadata?.location?.toUpperCase() || "KOCHI, KERALA, INDIA"
+          }\n  STATUS:   Open to enterprise infrastructure & DevOps engagements.`,
         });
         break;
 
       default:
         newLines.push({
           type: "output",
-          content: `zsh: command not found: ${trimmed}. Type 'help' for available system commands.`,
+          content: `sh: command not found: ${trimmed}. Type 'help' for available system commands.`,
         });
     }
 
@@ -217,56 +231,79 @@ export default function HeroTerminal({
     }
   };
 
+  const quickCommands = ["whoami", "status", "skills", "projects", "experience", "clear"];
+
   return (
     <div
       onClick={() => inputRef.current?.focus()}
-      className="w-full bg-[#0A0A0A]/95 border border-zinc-800 rounded-lg shadow-2xl font-mono text-xs overflow-hidden flex flex-col cursor-text transition-all hover:border-zinc-700"
+      className={`w-full bg-[#0A0A0A]/95 border border-zinc-800/90 rounded-lg shadow-xl ${fontClass} text-xs overflow-hidden flex flex-col cursor-text transition-all hover:border-zinc-700 relative`}
     >
-      {/* Window Title Bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-950 border-b border-zinc-800 select-none">
-        <div className="flex items-center gap-2">
+      {/* Subtle Dot Grid Background in Terminal */}
+      {techDots && (
+        <div
+          className="absolute inset-0 opacity-[0.05] pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, #ffffff 1px, transparent 1px)",
+            backgroundSize: "14px 14px",
+          }}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Minimal Industrial Title Bar */}
+      <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-950 border-b border-zinc-800/80 select-none relative z-10">
+        <div className="flex items-center gap-2.5">
+          {/* Minimal circular dot indicators */}
           <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80 inline-block" />
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-zinc-700 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-zinc-700 inline-block" />
+            <span className="w-2 h-2 rounded-full bg-emerald-400 inline-block" />
           </div>
-          <span className="text-[11px] font-mono text-zinc-400 pl-2">
-            akhil@infrastructure-node-01: ~
+          <span className="text-[11px] text-zinc-400 pl-2 tracking-wider font-nothing">
+            AKHIL@PORTFOLIO // SH
           </span>
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-zinc-500">
-          <Terminal size={12} />
-          <span>zsh · 80x24</span>
+
+        <div className="flex items-center gap-3 text-[10px] text-zinc-500">
+          {techMeta && (
+            <span className="hidden sm:inline text-zinc-500 font-mono">
+              VT-100 · UTF-8
+            </span>
+          )}
+          <div className="flex items-center gap-1 text-emerald-400 font-bold font-nothing text-[10px]">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span>READY</span>
+          </div>
         </div>
       </div>
 
       {/* Terminal Output Area */}
       <div
         ref={scrollRef}
-        className="p-4 sm:p-5 space-y-2.5 max-h-[340px] min-h-[220px] overflow-y-auto leading-relaxed"
+        className="p-4 sm:p-5 space-y-2.5 max-h-[320px] min-h-[220px] overflow-y-auto leading-relaxed relative z-10"
       >
         {history.map((line, idx) => (
-          <div key={idx}>
+          <div key={idx} className="space-y-1">
             {line.type === "input" && (
               <div className="flex items-center gap-2 text-zinc-100">
-                <span className="text-emerald-400">akhil@portfolio:~$</span>
-                <span>{line.content}</span>
+                <span className="text-emerald-400 font-bold tracking-wider font-nothing text-[11px]">AKHIL@PORTFOLIO:~$</span>
+                <span className="font-semibold font-mono">{line.content}</span>
               </div>
             )}
             {line.type === "output" && (
-              <pre className="text-zinc-300 font-mono text-xs whitespace-pre-wrap pl-0 sm:pl-2">
+              <pre className="text-zinc-300 text-xs whitespace-pre-wrap pl-0 sm:pl-2 font-mono leading-relaxed">
                 {line.content}
               </pre>
             )}
             {line.type === "system" && (
-              <div className="text-zinc-500 text-[11px]">{line.content}</div>
+              <div className="text-zinc-500 text-[11px] tracking-wide font-mono">{line.content}</div>
             )}
           </div>
         ))}
 
         {/* Input prompt line */}
         <div className="flex items-center gap-2 pt-1">
-          <span className="text-emerald-400 flex-shrink-0">akhil@portfolio:~$</span>
+          <span className="text-emerald-400 font-bold tracking-wider flex-shrink-0 font-nothing text-[11px]">AKHIL@PORTFOLIO:~$</span>
           <input
             ref={inputRef}
             type="text"
@@ -274,7 +311,7 @@ export default function HeroTerminal({
             onChange={(e) => setInputVal(e.target.value)}
             onKeyDown={handleKeyDown}
             aria-label="Terminal command input"
-            className="flex-1 bg-transparent text-zinc-100 focus:outline-none font-mono caret-emerald-400"
+            className="flex-1 bg-transparent text-zinc-100 focus:outline-none caret-emerald-400 font-medium font-mono"
             autoComplete="off"
             spellCheck="false"
           />
@@ -287,6 +324,24 @@ export default function HeroTerminal({
             <CornerDownLeft size={13} />
           </button>
         </div>
+      </div>
+
+      {/* Compact Command Quick-Bar */}
+      <div className="px-4 py-2 bg-zinc-950/90 border-t border-zinc-800/70 flex flex-wrap items-center gap-1.5 text-[10px] text-zinc-500 select-none relative z-10">
+        <span className="text-zinc-600 uppercase tracking-widest mr-1 font-nothing text-[9px]">HINT:</span>
+        {quickCommands.map((cmd) => (
+          <button
+            key={cmd}
+            type="button"
+            onClick={() => {
+              setInputVal(cmd);
+              executeCommand(cmd);
+            }}
+            className="px-2 py-0.5 rounded bg-zinc-900 hover:bg-zinc-800 hover:text-zinc-300 text-zinc-400 border border-zinc-800/80 transition-colors font-nothing text-[9px]"
+          >
+            {cmd}
+          </button>
+        ))}
       </div>
     </div>
   );

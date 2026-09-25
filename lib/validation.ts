@@ -44,6 +44,10 @@ export const siteSettingsSchema = z.object({
   statusAutomation: z.string().default("Active"),
   statusMonitoring: z.string().default("Active"),
   statusDeployment: z.string().default("Ready"),
+  technicalTypographyEnabled: z.boolean().default(true),
+  technicalDotPatternEnabled: z.boolean().default(true),
+  technicalMetadataEnabled: z.boolean().default(true),
+  technicalDecorationsEnabled: z.boolean().default(true),
 });
 
 // 2. About Section Schema
@@ -58,6 +62,8 @@ export const aboutSectionSchema = z.object({
 export const experienceSchema = z.object({
   company: z.string().min(1, "Company is required").max(150),
   role: z.string().min(1, "Role is required").max(150),
+  website: safeUrlSchema,
+  employmentType: z.string().max(100).optional().default("Full-time"),
   startDate: z.string().min(1, "Start date is required"),
   endDate: z.string().optional().default(""),
   current: z.boolean().default(false),

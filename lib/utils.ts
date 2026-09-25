@@ -55,6 +55,17 @@ export function sanitizeUrl(url?: string | null): string {
 
 export function formatDate(dateString?: string | Date | null): string {
   if (!dateString) return "";
+  if (typeof dateString === "string") {
+    const match = dateString.match(/^(\d{4})-(\d{2})$/);
+    if (match) {
+      const year = match[1];
+      const monthNum = parseInt(match[2], 10);
+      const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      if (monthNum >= 1 && monthNum <= 12) {
+        return `${months[monthNum - 1]} ${year}`;
+      }
+    }
+  }
   const d = new Date(dateString);
   if (isNaN(d.getTime())) return String(dateString);
   return d.toLocaleDateString("en-US", {

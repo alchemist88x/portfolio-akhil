@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0A0A0A"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" fill="none" stroke="#27272A" stroke-width="2.5"/>
+  
+  <!-- Terminal Prompt > -->
+  <path d="M14 20 L27 32 L14 44" fill="none" stroke="#10B981" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Terminal Cursor _ -->
+  <line x1="33" y1="44" x2="50" y2="44" stroke="#10B981" stroke-width="6" stroke-linecap="round"/>
+  
+  <!-- DevOps Node Status LED -->
+  <circle cx="47" cy="18" r="4.5" fill="#10B981"/>
+  <circle cx="47" cy="18" r="7" fill="none" stroke="#10B981" stroke-width="1.5" stroke-opacity="0.4"/>
+</svg>

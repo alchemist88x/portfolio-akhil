@@ -3,6 +3,8 @@ import mongoose, { Schema, Document, Model } from "mongoose";
 export interface IExperience extends Document {
   company: string;
   role: string;
+  website?: string;
+  employmentType?: string;
   startDate: string;
   endDate?: string;
   current: boolean;
@@ -20,6 +22,8 @@ const ExperienceSchema = new Schema<IExperience>(
   {
     company: { type: String, required: true },
     role: { type: String, required: true },
+    website: { type: String, default: "" },
+    employmentType: { type: String, default: "Full-time" },
     startDate: { type: String, required: true },
     endDate: { type: String, default: "" },
     current: { type: Boolean, default: false },

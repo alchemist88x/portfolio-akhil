@@ -19,6 +19,10 @@ export const defaultSiteSettings = {
   statusAutomation: "Active",
   statusMonitoring: "Active",
   statusDeployment: "Ready",
+  technicalTypographyEnabled: true,
+  technicalDotPatternEnabled: true,
+  technicalMetadataEnabled: true,
+  technicalDecorationsEnabled: true,
 };
 
 export const defaultAboutSection = {
@@ -34,11 +38,50 @@ export const defaultAboutSection = {
 
 export const defaultExperiences = [
   {
-    company: "Iroid Technologies",
-    role: "Server/System Administrator",
-    startDate: "2021-07-11",
+    company: "Varvy Innovations Pvt. Ltd.",
+    website: "https://varvyinnovations.com/",
+    role: "System Engineer / DevOps Engineer",
+    startDate: "2026-08",
     endDate: "",
     current: true,
+    employmentType: "Full-time",
+    description:
+      "Lead systems engineering and DevOps operations across cloud platforms, specializing in Generative AI model deployment infrastructure, real-time gaming backends, and crypto/Web3 node networks. Architect high-availability Linux clusters, GPU-accelerated compute pipelines, automated CI/CD releases, and end-to-end cloud security.",
+    responsibilities: [
+      "Architect and maintain high-throughput cloud infrastructure for Generative AI models, LLM inference pipelines, and AI agent workloads.",
+      "Orchestrate GPU-accelerated compute clusters (Kubernetes, Docker) for AI model serving, model evaluation, and low-latency API delivery.",
+      "Design and deploy resilient, scalable backend infrastructure for real-time multiplayer gaming services and high-concurrency player sessions.",
+      "Manage and secure decentralized crypto / Web3 validator nodes, blockchain RPC infrastructure, and cold/hot wallet network security.",
+      "Implement automated GitOps and multi-environment CI/CD deployment pipelines ensuring zero-downtime rolling updates.",
+      "Enforce infrastructure-wide cloud security, access control policies, WAF protection, and proactive 24/7 observability.",
+    ],
+    technologies: [
+      "AWS",
+      "Linux",
+      "DevOps",
+      "Docker",
+      "Kubernetes",
+      "Gen AI",
+      "LLM Infrastructure",
+      "PyTorch Inference",
+      "GPU Orchestration",
+      "Gaming Infrastructure",
+      "Web3 / Crypto Nodes",
+      "CI/CD",
+      "Terraform",
+      "Prometheus",
+      "Automation",
+    ],
+    location: "Kochi, Kerala, India",
+    sortOrder: 0,
+    published: true,
+  },
+  {
+    company: "Iroid Technologies",
+    role: "DevOps / System Administrator",
+    startDate: "2021-07-11",
+    endDate: "2026-07",
+    current: false,
     description:
       "Develop and oversee all aspects of a complex system to solve a problem, from initial creation of the system to production and management through the end product or solution.",
     responsibilities: [

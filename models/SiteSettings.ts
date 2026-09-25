@@ -20,6 +20,10 @@ export interface ISiteSettings extends Document {
   statusAutomation: string;
   statusMonitoring: string;
   statusDeployment: string;
+  technicalTypographyEnabled: boolean;
+  technicalDotPatternEnabled: boolean;
+  technicalMetadataEnabled: boolean;
+  technicalDecorationsEnabled: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -49,6 +53,10 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
     statusAutomation: { type: String, default: "Active" },
     statusMonitoring: { type: String, default: "Active" },
     statusDeployment: { type: String, default: "Ready" },
+    technicalTypographyEnabled: { type: Boolean, default: true },
+    technicalDotPatternEnabled: { type: Boolean, default: true },
+    technicalMetadataEnabled: { type: Boolean, default: true },
+    technicalDecorationsEnabled: { type: Boolean, default: true },
   },
   { timestamps: true }
 );

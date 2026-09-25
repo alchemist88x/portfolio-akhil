@@ -15,6 +15,8 @@ interface ExperienceItem {
   _id: string;
   company: string;
   role: string;
+  website?: string;
+  employmentType?: string;
   startDate: string;
   endDate?: string;
   current: boolean;
@@ -36,6 +38,8 @@ export default function AdminExperiencePage() {
   const [editingExp, setEditingExp] = useState<ExperienceItem | null>(null);
   const [formData, setFormData] = useState({
     company: "",
+    website: "",
+    employmentType: "Full-time",
     role: "",
     startDate: "",
     endDate: "",
@@ -75,6 +79,8 @@ export default function AdminExperiencePage() {
     setEditingExp(null);
     setFormData({
       company: "",
+      website: "",
+      employmentType: "Full-time",
       role: "",
       startDate: "",
       endDate: "",
@@ -93,6 +99,8 @@ export default function AdminExperiencePage() {
     setEditingExp(exp);
     setFormData({
       company: exp.company,
+      website: exp.website || "",
+      employmentType: exp.employmentType || "Full-time",
       role: exp.role,
       startDate: exp.startDate,
       endDate: exp.endDate || "",
@@ -327,7 +335,7 @@ export default function AdminExperiencePage() {
                 required
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                placeholder="e.g. Iroid Technologies"
+                placeholder="e.g. Varvy Innovations Pvt. Ltd."
                 className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
@@ -338,18 +346,38 @@ export default function AdminExperiencePage() {
                 required
                 value={formData.role}
                 onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                placeholder="e.g. Server/System Administrator"
+                placeholder="e.g. System Engineer / DevOps Engineer"
                 className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
             <div>
-              <label className="block text-xs font-mono text-zinc-400 mb-1">Start Date</label>
+              <label className="block text-xs font-mono text-zinc-400 mb-1">Company Website</label>
+              <input
+                type="url"
+                value={formData.website}
+                onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                placeholder="https://varvyinnovations.com/"
+                className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono text-zinc-400 mb-1">Employment Type</label>
+              <input
+                type="text"
+                value={formData.employmentType}
+                onChange={(e) => setFormData({ ...formData, employmentType: e.target.value })}
+                placeholder="e.g. Full-time, Contract"
+                className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-mono text-zinc-400 mb-1">Start Date (e.g. 2026-08)</label>
               <input
                 type="text"
                 required
                 value={formData.startDate}
                 onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                placeholder="YYYY-MM-DD or DD/MM/YYYY"
+                placeholder="YYYY-MM or YYYY-MM-DD"
                 className="w-full bg-zinc-900 border border-zinc-800 rounded px-3 py-2 text-xs font-mono text-zinc-100 focus:outline-none focus:border-emerald-500"
               />
             </div>
